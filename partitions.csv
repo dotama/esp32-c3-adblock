@@ -1,9 +1,11 @@
 # Dual-OTA layout for 4MB flash: two app slots (firmware OTA) + LittleFS (blocklist).
-# Firmware ~1.24MB (TLS+HTTP+OTA), so slots are 1.3125MB (~134KB headroom each).
-# That leaves 1.3125MB for the blocklist (~250k domains @ 5 bytes).
+# China-enabled build (default StevenBlack+Hagezi + anti-AD) = ~203k domains / 0.97MB,
+# so the blocklist partition is enlarged to 0x110000 (1.06MB) and app slots shrink to
+# 0x170000 - the minimum that still holds the 1,497,536B firmware (~9.8KB margin;
+# checkprogsize fails the build before flash if firmware ever outgrows a slot).
 # Name,     Type, SubType, Offset,   Size
 nvs,        data, nvs,     0x9000,   0x5000
 otadata,    data, ota,     0xe000,   0x2000
-app0,       app,  ota_0,   0x10000,  0x150000
-app1,       app,  ota_1,   0x160000, 0x150000
-spiffs,     data, spiffs,  0x2b0000, 0x150000
+app0,       app,  ota_0,   0x10000,  0x170000
+app1,       app,  ota_1,   0x180000, 0x170000
+spiffs,     data, spiffs,  0x2f0000, 0x110000

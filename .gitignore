@@ -12,6 +12,9 @@
 # Generated blocklist (build it with tools/build_blocklist.py)
 data/blocklist.bin
 
+# Downloaded blocklist sources cache (tools/build_china_blocklist.py)
+tools/.cache/
+
 # WiFi credentials (copy src/secrets.example.h -> src/secrets.h)
 src/secrets.h
 
